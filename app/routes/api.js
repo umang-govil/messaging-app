@@ -13,6 +13,7 @@ api.post('/createUser', user.createUser);
 
 api.post('/login', user.login);
 
+//middleware for authentication
 api.use(function(req, res, next) {
 
 	console.log("in the middleware");

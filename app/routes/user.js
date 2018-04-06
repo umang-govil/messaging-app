@@ -7,6 +7,8 @@ var api = express.Router();
 var mongoose = require('mongoose');
 
 var config = require('../../config');
+
+//secretKey is used in the generation of the token
 var secretKey = config.secretKey;
 
 var jsonwebtoken = require('jsonwebtoken');
@@ -59,7 +61,7 @@ api.login = function(req, res) {
 					message: 'Invalid Password'
 				});
 			} else {
-				///token
+				///token generation
 				var token = createToken(user);
 
 				res.status(200).json({
@@ -75,6 +77,7 @@ api.login = function(req, res) {
 
 api.sendMessage = function(req, res) {
 	var flag = false;
+	//checking for blocked user........
 	User.findOne({
 		_id: req.decoded.id
 	}, function(err, user) {
@@ -90,6 +93,7 @@ api.sendMessage = function(req, res) {
 					flag = true;
 				}
 			});
+			//.................flag is true for blocked.........
 			if (flag) {
 				res.status(406).send({
 					message: 'You are blocked by that user'

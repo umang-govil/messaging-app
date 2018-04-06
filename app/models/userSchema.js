@@ -38,6 +38,7 @@ var UserSchema = new Schema({
 	timestamps: true
 });
 
+//hashing the password using bcrypt before saving it in the database
 UserSchema.pre('save', function(next) {
 	var user = this;
 	if (!user.isModified('password')) return next();
