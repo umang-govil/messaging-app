@@ -58,6 +58,6 @@ You can access the APIs by appending api/{api_name}/
 * [Express](https://expressjs.com/) - Node.js web application framework
 * [MongoDB](https://www.mongodb.com/) - A NoSQL Database 
 
-## Authors
+## Author
 
 * **Umang Govil** - *(umang.govil17996@gmail.com)*
