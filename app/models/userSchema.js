@@ -24,10 +24,16 @@ var UserSchema = new Schema({
 		type: String,
 		required: true
 	},
-	blocked: {
-		type: Boolean,
-		default: false
-	}
+	blockedBy: [{
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+		default: null
+	}],
+	messages: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Message',
+		default: null
+	}]
 }, {
 	timestamps: true
 });

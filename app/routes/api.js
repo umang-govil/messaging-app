@@ -13,7 +13,7 @@ api.post('/createUser', user.createUser);
 
 api.post('/login', user.login);
 
-/*api.use(function(req, res, next) {
+api.use(function(req, res, next) {
 
 	console.log("in the middleware");
 	var token = req.body.token || req.headers.authorization;
@@ -37,7 +37,12 @@ api.post('/login', user.login);
 			message: 'No token provided'
 		});
 	}
-});*/
+});
 
+api.post('/sendMessage', user.sendMessage);
+
+api.get('/inbox', user.getMessages);
+
+api.put('/block/:username', user.blockUser);
 
 module.exports = api;
