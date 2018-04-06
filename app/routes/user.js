@@ -74,6 +74,7 @@ api.login = function(req, res) {
 };
 
 api.sendMessage = function(req, res) {
+	var flag = false;
 	User.findOne({
 		_id: req.decoded.id
 	}, function(err, user) {
@@ -86,50 +87,53 @@ api.sendMessage = function(req, res) {
 		} else {
 			user.blockedBy.forEach(function(id) {
 				if (id == req.body.toUser) {
-					res.status(406).send({
-						message: 'You are blocked by that user'
-					});
-				} else {
-					var message = new Message({
-						sentBy: req.decoded.id,
-						subject: req.body.subject,
-						content: req.body.content,
-						sentTo: req.body.toUser
-					});
-
-					message.save(function(err, data) {
-						if (err) {
-							res.status(500).send(err);
-							return;
-						} else {
-							res.status(200).json({
-								success: true,
-								message: "Message sent succesfully !"
-							});
-
-							User.findOne({
-								_id: req.body.toUser
-							}, function(err, user) {
-								if (err) {
-									res.status(500).send(err);
-								} else if (!user) {
-									res.status(404).send({
-										message: "User doesn't exist"
-									});
-								} else {
-									user.messages.push(data._id);
-
-									user.save(function(err) {
-										if (err) {
-											res.status(500).send(err);
-										}
-									});
-								}
-							});
-						}
-					});
+					flag = true;
 				}
 			});
+			if (flag) {
+				res.status(406).send({
+					message: 'You are blocked by that user'
+				});
+			} else {
+				var message = new Message({
+					sentBy: req.decoded.id,
+					subject: req.body.subject,
+					content: req.body.content,
+					sentTo: req.body.toUser
+				});
+
+				message.save(function(err, data) {
+					if (err) {
+						res.status(500).send(err);
+						return;
+					} else {
+						res.status(200).json({
+							success: true,
+							message: "Message sent succesfully !"
+						});
+
+						User.findOne({
+							_id: req.body.toUser
+						}, function(err, user) {
+							if (err) {
+								res.status(500).send(err);
+							} else if (!user) {
+								res.status(404).send({
+									message: "User doesn't exist"
+								});
+							} else {
+								user.messages.push(data._id);
+
+								user.save(function(err) {
+									if (err) {
+										res.status(500).send(err);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
 		}
 	});
 };
