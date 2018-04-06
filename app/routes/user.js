@@ -82,7 +82,7 @@ api.sendMessage = function(req, res) {
 			res.status(500).send(err);
 		} else if (!user) {
 			res.status(404).send({
-				message: "User doesn't exist1"
+				message: "User doesn't exist"
 			});
 		} else {
 			user.blockedBy.forEach(function(id) {
