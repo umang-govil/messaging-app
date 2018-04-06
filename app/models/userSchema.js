@@ -27,12 +27,18 @@ var UserSchema = new Schema({
 	blockedBy: [{
 		type: Schema.Types.ObjectId,
 		ref: 'User',
-		default: null
+		default: null,
+		index: {
+			unique: true
+		}
 	}],
 	messages: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Message',
-		default: null
+		default: null,
+		index: {
+			unique: true
+		}
 	}]
 }, {
 	timestamps: true
