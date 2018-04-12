@@ -2,8 +2,6 @@
 
 This is a project for backend developer position by CashPositive. 
 
-You can find the assignment [here](https://github.com/umang-govil/messaging-app/blob/master/NodeJS%20Assignment%20-%20Messaging.pdf).
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
